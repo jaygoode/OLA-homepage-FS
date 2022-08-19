@@ -3,7 +3,11 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { getAllEvents, eventReducer } from "../redux/reducers/eventReducer";
+import {
+  getAllEvents,
+  eventReducer,
+  updateEvent,
+} from "../redux/reducers/eventReducer";
 import { useDispatch } from "react-redux";
 import { Event } from "../types/event";
 
@@ -22,7 +26,6 @@ import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Container } from "@mui/material";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -43,8 +46,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default function Events() {
   const [expanded, setExpanded] = React.useState(false);
-  const [openEditModal, setOpenEditModal] = React.useState(false);
-  const [event, setEvent] = React.useState({
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [event, setEvent] = useState({
     id: "",
     description: "",
     date: "",
@@ -61,6 +64,11 @@ export default function Events() {
   };
 
   const toggleEditModal = () => {
+    setEvent({
+      id: "",
+      description: "",
+      date: "",
+    });
     setOpenEditModal(!openEditModal);
   };
 
@@ -71,11 +79,17 @@ export default function Events() {
   ) => {
     setEvent({ id, description, date });
     setOpenEditModal(!openEditModal);
-    console.log(event);
+  };
+
+  const saveHandler = (event: any) => {
+    console.log(event.date);
+    dispatch(updateEvent(event));
+    setOpenEditModal(!openEditModal);
   };
 
   const handleChange = (e: { target: { name: string; value: string } }) => {
     setEvent({ ...event, [e.target.name]: e.target.value });
+    console.log(event.date);
   };
 
   const EventCard = (props: any) => {
@@ -148,22 +162,27 @@ export default function Events() {
 
   const EventCardForm = (props: any) => {
     return (
-      <Card key={props.id} className="event-card">
+      <Card className="event-card">
         <form>
           <CardHeader
             avatar={
               <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                R
+                OLA
               </Avatar>
             }
             action={
               <IconButton aria-label="settings" onClick={toggleEditModal}>
-                Cancel
+                X
               </IconButton>
             }
             title="Event"
             subheader={
-              <input value={event.date} onChange={handleChange} required />
+              <input
+                name="date"
+                value={props.date}
+                onChange={handleChange}
+                required
+              />
             }
           />
           <CardMedia
@@ -174,32 +193,29 @@ export default function Events() {
           />
           <CardContent>
             <textarea
-              value={event.description}
+              name="description"
+              value={props.description}
               onChange={handleChange}
               required
             />
           </CardContent>
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
             <ExpandMore
               expand={expanded}
               onClick={handleExpandClick}
               aria-expanded={expanded}
               aria-label="show more"
-            >
-              <ExpandMoreIcon />
-            </ExpandMore>
+            ></ExpandMore>
           </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography paragraph>longer description</Typography>
-            </CardContent>
-          </Collapse>
+          <CardContent>
+            <Typography paragraph>longer description</Typography>
+            <IconButton aria-label="settings" onClick={saveHandler}>
+              Save
+            </IconButton>
+            <IconButton aria-label="settings" onClick={toggleEditModal}>
+              Cancel
+            </IconButton>
+          </CardContent>
         </form>
       </Card>
     );
@@ -218,10 +234,14 @@ export default function Events() {
                 date={event.date}
                 eventId={event._id}
                 description={event.description}
+                handleChange={handleChange}
+                toggleEditModal={toggleEditModal}
               />
             ))
           ) : (
             <EventCardForm
+              handleChange={handleChange}
+              toggleEditModal={toggleEditModal}
               date={event.date}
               eventId={event.id}
               description={event.description}

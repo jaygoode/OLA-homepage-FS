@@ -50,23 +50,29 @@ export const createEvent = createAsyncThunk(
   }
 );
 
-export const updateEvent = createAsyncThunk("updateEvent", async (update) => {
-  try {
-    const response = await fetch("http://localhost:5000/events", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        update,
-      }),
-    });
-    const result = await response.json();
-    return result;
-  } catch (error: any) {
-    return error.message;
+export const updateEvent = createAsyncThunk(
+  "updateEvent",
+  async (update: any) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/events/${update.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            update,
+          }),
+        }
+      );
+      const result = await response.json();
+      return result;
+    } catch (error: any) {
+      return error.message;
+    }
   }
-});
+);
 
 const eventSlice = createSlice({
   name: "eventReducer",
@@ -78,7 +84,6 @@ const eventSlice = createSlice({
         getAllEvents.fulfilled,
         (state, action: PayloadAction<Event[]>) => {
           state.eventList = action.payload;
-          console.log(action.payload);
           return state;
         }
       )
@@ -88,7 +93,12 @@ const eventSlice = createSlice({
           state.currentEvent = action.payload;
           return state;
         }
-      );
+      )
+      .addCase(updateEvent.fulfilled, (state, action: any) => {
+        state.currentEvent = action.payload;
+        console.log(action.payload);
+        return state;
+      });
   },
 });
 
