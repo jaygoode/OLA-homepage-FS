@@ -1,0 +1,33 @@
+.event-container{
+    display: flex;
+    // background-color: red;
+    align-items: center;
+    justify-content: center;
+
+    .event-card{
+        display: flex;
+        flex-direction: column;
+        margin:1em;
+        // width:100%;
+        background-color: rgb(192, 207, 235);
+        color: black;
+        font-size: 1em;
+        font-weight: bold;
+
+        .card-middle-section{
+            display:flex;
+            flex-direction: row;
+        }
+    }
+}
+
+.events-header-container{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+    .events-header{
+        font-size: 3rem;
+    }
+}
+

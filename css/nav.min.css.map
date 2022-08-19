@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,cAAc,AAAA,CACV,gBAAgB,CAAE,iBAAoB,CACtC,KAAK,CAAE,KAAK,CAYf,AAdD,AAII,cAJU,CAIV,SAAS,AAAA,CACL,KAAK,CAAE,KAAK,CACZ,eAAe,CAAE,IAAI,CACrB,WAAW,CAAC,GAAG,CACf,SAAS,CAAE,KAAK,CAKnB,AAbL,AASQ,cATM,CAIV,SAAS,AAKJ,MAAM,AAAA,CACH,KAAK,CAAC,OAAkB,CACxB,eAAe,CAAE,QAAQ,CAC5B",
+    "sources": [
+        "../client/src/styles/components/nav.scss"
+    ],
+    "names": [],
+    "file": "nav.min.css"
+}
