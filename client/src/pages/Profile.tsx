@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { Credentials, User } from "../types/user";
 import { useEffect, useState } from "react";
-import { getUsers } from "../redux/reducers/userReducer";
+import { getUsers, updateUser } from "../redux/reducers/userReducer";
 
 import React from "react";
 import { Container } from "@material-ui/core";
@@ -16,13 +16,20 @@ const Profile = () => {
   const [user, setUser] = useState({ email: "", password: "" });
   const loggedInUser = useAppSelector((state) => state.userReducer.currentUser);
   const userList = useAppSelector((state) => state.userReducer.userList);
-  // console.log(userList);
-  // console.log(loggedInUser);
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getUsers());
-  // }, [loggedInUser]);
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [loggedInUser]);
+
+  const handleChange = (e: { target: { name: string; value: string } }) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    dispatch(updateUser(user));
+  };
 
   const UserProfile = (props: Partial<User>) => {
     return (
@@ -44,7 +51,10 @@ const Profile = () => {
               Password <Button size="small">Change</Button>
             </Typography>
             <Typography gutterBottom variant="h5" component="div">
-              {props.role} <Button size="small">Change</Button>
+              {props.role}
+              {loggedInUser?.role === "admin" && (
+                <Button size="small">Change</Button>
+              )}
             </Typography>
           </CardContent>
         </Card>

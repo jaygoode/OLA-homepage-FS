@@ -16,23 +16,29 @@ export const getUsers = createAsyncThunk("getUsers", async () => {
   }
 });
 
-export const updateUser = createAsyncThunk("updateUser", async (update) => {
-  try {
-    const response = await fetch("http://localhost:5000/users", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        update,
-      }),
-    });
-    const result = await response.json();
-    return result;
-  } catch (error: any) {
-    return error.message;
+export const updateUser = createAsyncThunk(
+  "updateUser",
+  async (update: Partial<User>) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/users/${update._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            update,
+          }),
+        }
+      );
+      const result = await response.json();
+      return result;
+    } catch (error: any) {
+      return error.message;
+    }
   }
-});
+);
 
 export const createUser = createAsyncThunk("createUser", async (user: User) => {
   const { firstname, lastname, email, password, role } = user;
@@ -98,16 +104,15 @@ const userSlice = createSlice({
   name: "userReducer",
   initialState: initialState,
   reducers: {
-    logout: (state, action) => {
-      // state.currentUser = undefined;
-      // localStorage.removeItem("token");
+    logout: (state) => {
+      state.currentUser = undefined;
+      localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getUsers.fulfilled, (state, action: PayloadAction<User[]>) => {
         state.userList = action.payload;
-        // console.log(action.payload);
         return state;
       })
       .addCase(updateUser.fulfilled, (state, action: PayloadAction<User>) => {

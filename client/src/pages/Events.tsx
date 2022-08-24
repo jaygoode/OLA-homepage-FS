@@ -56,9 +56,9 @@ export default function Events() {
   const currentUser = useAppSelector((state) => state.userReducer.currentUser);
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getAllEvents());
-  // }, []);
+  useEffect(() => {
+    dispatch(getAllEvents());
+  }, []);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -70,6 +70,7 @@ export default function Events() {
       description: "",
       date: "",
     });
+    console.log(event);
     setOpenEditModal(!openEditModal);
   };
 

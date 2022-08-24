@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import { logout } from "../redux/reducers/userReducer";
 
 import LightModeIcon from "@mui/icons-material/LightMode";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
@@ -25,9 +26,13 @@ import { useContext } from "react";
 // import ThemeContext from "../theme/ThemeContext";
 
 const NavBar = () => {
-  const navItems = ["Home", "Events", "Cart", "Profile", "Login"];
-
+  const loggedInUser = useAppSelector((state) => state.userReducer.currentUser);
   const dispatch = useAppDispatch();
+  let navItems = ["Home", "Events", "Cart", "Login"];
+  if (loggedInUser) {
+    navItems = ["Home", "Events", "Cart", "Profile"];
+  }
+
   //   const theme = useTheme();
   //   const colormode = useContext(ThemeContext);
 
@@ -37,8 +42,7 @@ const NavBar = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const logout = (): any => {
-    console.log("logout");
+  const logoutHandler = (): any => {
     dispatch(logout());
   };
 
@@ -83,9 +87,11 @@ const NavBar = () => {
               <LightModeIcon />
             )}
           </Button> */}
-          <Button className="theme-btn" onClick={logout}>
-            logout
-          </Button>
+          {loggedInUser && (
+            <Button color="error" variant="outlined" onClick={logoutHandler}>
+              Logout
+            </Button>
+          )}
         </Toolbar>
       </Box>
     </>
