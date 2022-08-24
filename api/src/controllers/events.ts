@@ -22,7 +22,7 @@ export const getSingleEvent = async (
   try {
     res.json(await eventService.findEventById(req.params.ventId))
   } catch (e) {
-    return next(e)
+    res.send('Event not found.')
   }
 }
 
@@ -39,7 +39,7 @@ export const createEvent = async (
     })
     res.status(200).json(await eventService.createEvent(newEvent))
   } catch (e) {
-    res.status(401).send('unsuccessful ' + e)
+    res.status(401).send('unsuccessful ')
   }
 }
 
@@ -49,9 +49,10 @@ export const updateEvent = async (
   next: NextFunction
 ) => {
   try {
-    const id = req.params.EventId
-    const EventUpdate = req.body
-    res.status(200).send(await eventService.updateEvent(id, EventUpdate))
+    const id = req.params.eventId
+    const eventUpdate = req.body
+    console.log(id)
+    res.status(200).send(await eventService.updateEvent(id, eventUpdate))
   } catch (e) {
     return next(e)
   }

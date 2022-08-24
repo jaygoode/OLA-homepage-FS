@@ -11,6 +11,7 @@ import {
   getSingleEvent,
   updateEvent,
 } from '../../src/controllers/events'
+import { hasUncaughtExceptionCaptureCallback } from 'process'
 
 const nonExistingeventId = '5e57b77b5744fa0b461c7906'
 
@@ -68,8 +69,10 @@ describe('event controller', () => {
   })
   it('should delete event', async () => {
     const event = await CreateEvent()
+    const existing = await request(app).get(`/events/${event._id}`)
+    expect(existing.status).toBe(200)
     const response = await request(app).delete(`/events/${event._id}`)
-    expect(response.status).toBe(200)
-    expect(response.text).toBe('Event successfully deleted.')
+    const nonExisting = await request(app).get(`/events/${event._id}`)
+    expect(nonExisting.text).toBe(`Event not found.`)
   })
 })

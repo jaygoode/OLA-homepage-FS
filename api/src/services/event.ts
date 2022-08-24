@@ -19,21 +19,21 @@ const createEvent = async (newEvent: EventDocument): Promise<EventDocument> => {
 
 const deleteEvent = async (EventId: string): Promise<EventDocument | null> => {
   const event = Event.findByIdAndDelete(EventId)
-  if (!Event) {
+  if (!event) {
     throw new NotFoundError(`Event ${EventId} not found.`)
   }
   return event
 }
 
 const updateEvent = async (
-  EventId: string,
-  EventUpdate: Partial<EventDocument>
+  eventId: string,
+  eventUpdate: Partial<EventDocument>
 ): Promise<EventDocument | null> => {
-  const event = await Event.findByIdAndUpdate(EventId, EventUpdate, {
+  const event = await Event.findByIdAndUpdate(eventId, eventUpdate, {
     new: true,
   })
-  if (!Event) {
-    throw new NotFoundError(`Event ${EventId} not found.`)
+  if (!event) {
+    throw new NotFoundError(`Event ${eventId} not found.`)
   }
   return event
 }

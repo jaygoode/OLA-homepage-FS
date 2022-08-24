@@ -39,7 +39,7 @@ describe('test the event service', () => {
   it('should get an event with id', async () => {
     const event = await createEvent()
     const found = await eventService.findEventById(event._id)
-    expect(found.firstname).toEqual(event.firstname)
+    expect(found.date).toEqual(event.date)
     expect(found._id).toEqual(event._id)
   })
 
