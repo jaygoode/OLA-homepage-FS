@@ -99,8 +99,8 @@ const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     logout: (state, action) => {
-      state.currentUser = undefined;
-      localStorage.removeItem("token");
+      // state.currentUser = undefined;
+      // localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
@@ -128,3 +128,4 @@ const userSlice = createSlice({
 });
 
 export const userReducer = userSlice.reducer;
+export const { logout } = userSlice.actions;

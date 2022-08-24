@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 import LightModeIcon from "@mui/icons-material/LightMode";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
@@ -26,6 +27,7 @@ import { useContext } from "react";
 const NavBar = () => {
   const navItems = ["Home", "Events", "Cart", "Profile", "Login"];
 
+  const dispatch = useAppDispatch();
   //   const theme = useTheme();
   //   const colormode = useContext(ThemeContext);
 
@@ -33,6 +35,11 @@ const NavBar = () => {
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const logout = (): any => {
+    console.log("logout");
+    dispatch(logout());
   };
 
   return (
@@ -76,6 +83,9 @@ const NavBar = () => {
               <LightModeIcon />
             )}
           </Button> */}
+          <Button className="theme-btn" onClick={logout}>
+            logout
+          </Button>
         </Toolbar>
       </Box>
     </>

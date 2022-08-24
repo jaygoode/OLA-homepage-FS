@@ -53,11 +53,12 @@ export default function Events() {
     date: "",
   });
   const events = useAppSelector((state) => state.eventReducer.eventList);
+  const currentUser = useAppSelector((state) => state.userReducer.currentUser);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(getAllEvents());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAllEvents());
+  // }, []);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -92,135 +93,6 @@ export default function Events() {
     console.log(event.date);
   };
 
-  const EventCard = (props: any) => {
-    return (
-      <>
-        <Card key={props.id} className="event-card">
-          <CardHeader
-            avatar={
-              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                OLA
-              </Avatar>
-            }
-            // action={
-            //   <IconButton aria-label="settings" onClick={toggleEditModal}>
-            //     {openEditModal ? <p>Cancel</p> : <p>Edit</p>}
-            //   </IconButton>
-            // }
-            action={
-              <IconButton
-                aria-label="settings"
-                onClick={() =>
-                  getEvent(props.eventId, props.description, props.date)
-                }
-              >
-                {openEditModal ? <p>Cancel</p> : <p>Edit</p>}
-              </IconButton>
-            }
-            title="Event"
-            subheader={props.date}
-          />
-          <div className="card-middle-section">
-            <CardMedia
-              component="img"
-              height="170"
-              width="100"
-              image="../images/"
-              alt="picture of event"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                {props.description}
-              </Typography>
-            </CardContent>
-          </div>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
-            <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExpandMoreIcon />
-            </ExpandMore>
-          </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography paragraph>Longer description</Typography>
-            </CardContent>
-          </Collapse>
-        </Card>
-      </>
-    );
-  };
-
-  const EventCardForm = (props: any) => {
-    return (
-      <Card className="event-card">
-        <form>
-          <CardHeader
-            avatar={
-              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                OLA
-              </Avatar>
-            }
-            action={
-              <IconButton aria-label="settings" onClick={toggleEditModal}>
-                X
-              </IconButton>
-            }
-            title="Event"
-            subheader={
-              <input
-                name="date"
-                value={props.date}
-                onChange={handleChange}
-                required
-              />
-            }
-          />
-          <CardMedia
-            component="img"
-            height="194"
-            image="/static/images/cards/paella.jpg"
-            alt="Picture of event"
-          />
-          <CardContent>
-            <textarea
-              name="description"
-              value={props.description}
-              onChange={handleChange}
-              required
-            />
-          </CardContent>
-          <CardActions disableSpacing>
-            <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-            ></ExpandMore>
-          </CardActions>
-          <CardContent>
-            <Typography paragraph>longer description</Typography>
-            <IconButton aria-label="settings" onClick={saveHandler}>
-              Save
-            </IconButton>
-            <IconButton aria-label="settings" onClick={toggleEditModal}>
-              Cancel
-            </IconButton>
-          </CardContent>
-        </form>
-      </Card>
-    );
-  };
-
   return (
     <>
       <Container className="event-container">
@@ -230,22 +102,139 @@ export default function Events() {
         <div>
           {!openEditModal && events ? (
             events.map((event) => (
-              <EventCard
-                date={event.date}
-                eventId={event._id}
-                description={event.description}
-                handleChange={handleChange}
-                toggleEditModal={toggleEditModal}
-              />
+              <>
+                <Card className="event-card">
+                  {currentUser && currentUser.role === "admin" ? (
+                    <IconButton
+                      aria-label="edit"
+                      onClick={() =>
+                        getEvent(event._id, event.description, event.date)
+                      }
+                    >
+                      {openEditModal ? <p>Cancel</p> : <p>Edit</p>}
+                    </IconButton>
+                  ) : null}
+                  <CardHeader
+                    avatar={
+                      <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                        OLA
+                      </Avatar>
+                    }
+                    // action={
+                    //   <IconButton aria-label="settings" onClick={toggleEditModal}>
+                    //     {openEditModal ? <p>Cancel</p> : <p>Edit</p>}
+                    //   </IconButton>
+                    // }
+                    // action={
+                    //   <IconButton
+                    //     aria-label="edit"
+                    //     onClick={() =>
+                    //       getEvent(event._id, event.description, event.date)
+                    //     }
+                    //   >
+                    //     {openEditModal ? <p>Cancel</p> : <p>Edit</p>}
+                    //   </IconButton>
+                    // }
+                    title="Event"
+                    subheader={event.date}
+                  />
+                  <div className="card-middle-section">
+                    <CardMedia
+                      component="img"
+                      height="170"
+                      width="100"
+                      image="../images/"
+                      alt="picture of event"
+                    />
+                    <CardContent>
+                      <Typography variant="body2" color="text.secondary">
+                        {event.description}
+                      </Typography>
+                    </CardContent>
+                  </div>
+                  <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites">
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <ShareIcon />
+                    </IconButton>
+                    <ExpandMore
+                      expand={expanded}
+                      onClick={handleExpandClick}
+                      aria-expanded={expanded}
+                      aria-label="show more"
+                    >
+                      <ExpandMoreIcon />
+                    </ExpandMore>
+                  </CardActions>
+                  <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                      <Typography paragraph>Longer description</Typography>
+                    </CardContent>
+                  </Collapse>
+                </Card>
+              </>
             ))
           ) : (
-            <EventCardForm
-              handleChange={handleChange}
-              toggleEditModal={toggleEditModal}
-              date={event.date}
-              eventId={event.id}
-              description={event.description}
-            />
+            <Card className="event-card">
+              <form>
+                <CardHeader
+                  avatar={
+                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                      OLA
+                    </Avatar>
+                  }
+                  action={
+                    <IconButton aria-label="settings" onClick={toggleEditModal}>
+                      X
+                    </IconButton>
+                  }
+                  title="Event"
+                  subheader={
+                    <input
+                      key="date"
+                      name="date"
+                      value={event.date}
+                      onChange={handleChange}
+                      required
+                    />
+                  }
+                />
+                <CardMedia
+                  component="img"
+                  height="194"
+                  image="/static/images/cards/paella.jpg"
+                  alt="Picture of event"
+                />
+                <CardContent>
+                  <textarea
+                    key="description"
+                    name="description"
+                    value={event.description}
+                    onChange={handleChange}
+                    required
+                  />
+                </CardContent>
+                <CardActions disableSpacing>
+                  <ExpandMore
+                    expand={expanded}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                  ></ExpandMore>
+                </CardActions>
+                <CardContent>
+                  <Typography paragraph>longer description</Typography>
+                  <IconButton aria-label="save" onClick={saveHandler}>
+                    Save
+                  </IconButton>
+                  <IconButton aria-label="cancel" onClick={toggleEditModal}>
+                    Cancel
+                  </IconButton>
+                </CardContent>
+              </form>
+            </Card>
           )}
         </div>
       </Container>

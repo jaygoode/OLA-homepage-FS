@@ -20,9 +20,9 @@ const Profile = () => {
   // console.log(loggedInUser);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [loggedInUser]);
+  // useEffect(() => {
+  //   dispatch(getUsers());
+  // }, [loggedInUser]);
 
   const UserProfile = (props: Partial<User>) => {
     return (

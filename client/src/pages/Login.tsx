@@ -20,11 +20,11 @@ export const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (loggedInUser?.email && loggedInUser.password) {
-      navigate("/profile");
-    }
-  }, [loggedInUser]);
+  // useEffect(() => {
+  //   if (loggedInUser?.email && loggedInUser.password) {
+  //     navigate("/profile");
+  //   }
+  // }, [loggedInUser]);
 
   const handleChange = (e: { target: { name: string; value: string } }) => {
     setUser({ ...user, [e.target.name]: e.target.value });
