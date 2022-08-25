@@ -61,7 +61,7 @@ export const updateUser = async (
   next: NextFunction
 ) => {
   try {
-    const id = req.params.userId
+    const id = req.body._id
     const userUpdate = req.body
     res.status(200).send(await userService.updateUser(id, userUpdate))
   } catch (e) {

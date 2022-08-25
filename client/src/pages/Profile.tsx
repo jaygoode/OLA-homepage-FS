@@ -62,6 +62,12 @@ const Profile = () => {
   const handleRoleChange = (e: { target: { name: string; value: string } }) => {
     setRole({ ...role, [e.target.name]: e.target.value });
   };
+  const setLoggedInUserId = () => {
+    setName({ _id: loggedInUser?._id });
+  };
+  const setUserId = () => {
+    setName({ _id: user?._id });
+  };
 
   return (
     <Container className="profile-container">

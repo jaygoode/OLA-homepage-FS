@@ -5,10 +5,10 @@ const getAllEvents = async (): Promise<EventDocument[]> => {
   return Event.find()
 }
 
-const findEventById = async (EventId: string): Promise<EventDocument> => {
-  const foundEvent = await Event.findById(EventId)
+const findEventById = async (eventId: string): Promise<EventDocument> => {
+  const foundEvent = await Event.findById(eventId)
   if (!foundEvent) {
-    throw new NotFoundError(`Event ${EventId} not found.`)
+    throw new NotFoundError(`Event ${eventId} not found.`)
   }
   return foundEvent
 }
@@ -17,23 +17,23 @@ const createEvent = async (newEvent: EventDocument): Promise<EventDocument> => {
   return newEvent.save()
 }
 
-const deleteEvent = async (EventId: string): Promise<EventDocument | null> => {
-  const event = Event.findByIdAndDelete(EventId)
+const deleteEvent = async (eventId: string): Promise<EventDocument | null> => {
+  const event = Event.findByIdAndDelete(eventId)
   if (!event) {
-    throw new NotFoundError(`Event ${EventId} not found.`)
+    throw new NotFoundError(`Event ${eventId} not found.`)
   }
   return event
 }
 
 const updateEvent = async (
-  eventId: string,
+  id: string,
   eventUpdate: Partial<EventDocument>
 ): Promise<EventDocument | null> => {
-  const event = await Event.findByIdAndUpdate(eventId, eventUpdate, {
+  const event = await Event.findByIdAndUpdate(id, eventUpdate, {
     new: true,
   })
   if (!event) {
-    throw new NotFoundError(`Event ${eventId} not found.`)
+    throw new NotFoundError(`Event ${id} not found.`)
   }
   return event
 }

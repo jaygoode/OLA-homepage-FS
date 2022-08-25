@@ -1,2 +1,2 @@
-.nav-container{background-color:rgba(0,0,0,0.616);color:white}.nav-container .nav-link{color:white;text-decoration:none;font-weight:500;font-size:1.2em}.nav-container .nav-link:hover{color:#a0c3eb;text-decoration:overline}
+.nav-container{background-image:-webkit-gradient(linear, left top, left bottom, from(#300955), to(rgba(29,44,160,0.842)));background-image:linear-gradient(#300955, rgba(29,44,160,0.842));color:white}.nav-container .nav-link{color:white;text-decoration:none;font-weight:500;font-size:1.2em}.nav-container .nav-link:hover{color:#a0c3eb;text-decoration:overline}
 /*# sourceMappingURL=nav.min.css.map */
