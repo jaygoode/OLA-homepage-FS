@@ -29,8 +29,9 @@ export const getSingleEvent = createAsyncThunk(
 );
 export const createEvent = createAsyncThunk(
   "createEvent",
-  async (event: Event) => {
+  async (event: Partial<Event>) => {
     const { date, description } = event;
+    console.log(event);
     try {
       const response = await fetch("http://localhost:5000/events", {
         method: "POST",
@@ -54,8 +55,9 @@ export const updateEvent = createAsyncThunk(
   "updateEvent",
   async (update: any) => {
     try {
+      console.log(update._id);
       const response = await fetch(
-        `http://localhost:5000/events/${update.id}`,
+        `http://localhost:5000/events/${update._id}`,
         {
           method: "PATCH",
           headers: {
@@ -67,6 +69,24 @@ export const updateEvent = createAsyncThunk(
         }
       );
       const result = await response.json();
+      console.log(result);
+      return result;
+    } catch (error: any) {
+      return error.message;
+    }
+  }
+);
+
+export const deleteEvent = createAsyncThunk(
+  "deleteEvent",
+  async (id: string) => {
+    try {
+      console.log(id);
+      const response = await fetch(`http://localhost:5000/events/${id}`, {
+        method: "DELETE",
+      });
+      const result = await response.json();
+      console.log(result);
       return result;
     } catch (error: any) {
       return error.message;
@@ -96,7 +116,9 @@ const eventSlice = createSlice({
       )
       .addCase(updateEvent.fulfilled, (state, action: any) => {
         state.currentEvent = action.payload;
-        console.log(action.payload);
+        return state;
+      })
+      .addCase(deleteEvent.fulfilled, (state) => {
         return state;
       });
   },

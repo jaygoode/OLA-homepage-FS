@@ -1,6 +1,21 @@
+.profile-container{
+    display: flex;
+    // background-color: red;
+    align-items: center;
+    justify-content: center;
+
+.profile-header{
+    font-size: 3rem;
+}
+
 .profile-card{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: red;
+        // flex-direction: column;
+        margin:1em;
+        // width:100%;
+        background-color: rgb(10, 79, 207);
+        color: white;
+        font-size: 1em;
+        font-weight: bold;
+}
 }

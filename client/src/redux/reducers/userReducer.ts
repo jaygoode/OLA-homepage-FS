@@ -20,18 +20,16 @@ export const updateUser = createAsyncThunk(
   "updateUser",
   async (update: Partial<User>) => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/users/${update._id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            update,
-          }),
-        }
-      );
+      console.log(update);
+      const response = await fetch(`http://localhost:5000/users`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          update,
+        }),
+      });
       const result = await response.json();
       return result;
     } catch (error: any) {

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { login } from "../redux/reducers/userReducer";
-import { Credentials, User } from "../types/user";
 import {
   Button,
   TextField,
@@ -90,14 +89,14 @@ export const Login = () => {
                       />
                     </Grid>
                     <Grid item>
-                      <button
-                      // variant="contained"
-                      // color="primary"
-                      // type="submit"
-                      // className="button-block"
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        // className="button-block"
                       >
-                        Submit
-                      </button>
+                        Login
+                      </Button>
                     </Grid>
                   </Grid>
                 </form>
