@@ -13,9 +13,33 @@
         // flex-direction: column;
         margin:1em;
         // width:100%;
-        background-color: rgb(10, 79, 207);
+        background-color: rgb(44, 67, 110);
         color: white;
         font-size: 1em;
+        
         font-weight: bold;
+        .profile-pic{
+            height:100px;
+        }
+        .profile-info{
+            display: flex;
+            // flex-direction: column;
+            margin:1rem
+        }
+        button{
+            padding: 0;
+            height:2.4em
+        }
+        .user-info{
+            display:flex;
+            flex-direction: row;
+        }
+        .user-text{
+            margin: 1em
+        }
+        img{
+            margin:1em
+            
+        }
 }
 }

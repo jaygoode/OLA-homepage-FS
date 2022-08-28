@@ -24,7 +24,7 @@ import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
+import { blue } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -160,7 +160,10 @@ export default function Events() {
                     ) : null}
                     <CardHeader
                       avatar={
-                        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                        <Avatar
+                          sx={{ bgcolor: blue[500] }}
+                          aria-label="ola-logo"
+                        >
                           OLA
                         </Avatar>
                       }
@@ -168,11 +171,8 @@ export default function Events() {
                       subheader={event.date}
                     />
                     <div className="card-middle-section">
-                      <CardMedia
-                        component="img"
-                        height="170"
-                        width="100"
-                        image="../images/"
+                      <img
+                        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd1fs8ljxwyzba6.cloudfront.net%2Fassets%2Farticle%2F2019%2F11%2F15%2Fdreamhack-atlanta-lan-essentials_feature.jpg&f=1&nofb=1"
                         alt="picture of event"
                       />
                       <CardContent>
@@ -210,7 +210,7 @@ export default function Events() {
                 <form>
                   <CardHeader
                     avatar={
-                      <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                      <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
                         OLA
                       </Avatar>
                     }
@@ -274,7 +274,7 @@ export default function Events() {
             <form>
               <CardHeader
                 avatar={
-                  <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                  <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
                     OLA
                   </Avatar>
                 }

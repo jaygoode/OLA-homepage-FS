@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import userEvent from "@testing-library/user-event";
 import { User, Credentials, UserReducerState } from "../../types/user";
 
 const initialState: UserReducerState = {
@@ -21,14 +22,12 @@ export const updateUser = createAsyncThunk(
   async (update: Partial<User>) => {
     try {
       console.log(update);
-      const response = await fetch(`http://localhost:5000/users`, {
+      const response = await fetch(`http://localhost:5000/users/`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          update,
-        }),
+        body: JSON.stringify(update),
       });
       const result = await response.json();
       return result;
@@ -56,6 +55,18 @@ export const createUser = createAsyncThunk("createUser", async (user: User) => {
     });
     const result = await response.json();
     console.log(result);
+    return result;
+  } catch (error: any) {
+    return error.message;
+  }
+});
+
+export const deleteUser = createAsyncThunk("deleteUser", async (id: string) => {
+  try {
+    const response = await fetch(`http://localhost:5000/users/${id}`, {
+      method: "DELETE",
+    });
+    const result = await response.json();
     return result;
   } catch (error: any) {
     return error.message;
@@ -114,14 +125,28 @@ const userSlice = createSlice({
         return state;
       })
       .addCase(updateUser.fulfilled, (state, action: PayloadAction<User>) => {
-        // state.userList. = action.payload;
+        state.userList.map((user) => {
+          if (user._id === action.payload._id) {
+            console.log(action.payload);
+            user = action.payload;
+            return user;
+          }
+        });
+        if (state.currentUser && state.currentUser._id === action.payload._id) {
+          state.currentUser = action.payload;
+        }
         return state;
       })
       .addCase(createUser.fulfilled, (state, action: PayloadAction<User>) => {
-        if (state.currentUser && state.currentUser.role !== "admin") {
+        if (state.currentUser && state.currentUser.role == "customer") {
           state.currentUser = action.payload;
-          return state;
+        } else if (state.currentUser && state.currentUser.role == "admin") {
+          state.userList.push(action.payload);
         }
+        return state;
+      })
+      .addCase(deleteUser.fulfilled, (state, action: PayloadAction<User>) => {
+        return state;
       })
       .addCase(login.fulfilled, (state, action: PayloadAction<User>) => {
         state.currentUser = action.payload;
