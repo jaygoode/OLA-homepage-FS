@@ -23,6 +23,19 @@
             flex-direction: row;
         }
     }
+    @media screen and (max-width: 900px) {
+        img {
+          height: 150px;
+          width:auto
+        }
+        
+    
+            .card-middle-section{
+                display:flex;
+                flex-direction: column;
+            }
+        }
+      
 }
 
 .events-header-container{

@@ -1,0 +1,38 @@
+.home-container{
+    // background-color: black;
+    // min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+    
+    .all-card-container{
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+    // background-color: black;
+    }
+    img{
+        height:300px;
+
+    }
+    .card-container{
+        display:flex;
+        flex-direction: row;
+        max-width: 1200px;
+        margin-top:5em;
+        gap:2em
+    }
+
+    .card-header{
+        font-size: 4em;
+    }
+    .card-paragraph{
+        overflow-wrap: break-word;
+    }
+    @media screen and (max-width: 900px) {
+        img {
+          height: 200px;
+          width:auto
+        }
+      }
+}

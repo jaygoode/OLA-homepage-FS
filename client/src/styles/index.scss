@@ -1,6 +1,6 @@
 @use './pages/events';
-// @use './pages/home';
-// @use './pages/event';
+@use './pages/home';
+@use './pages/contact';
 @use './pages/login';
 @use'./pages/profile';
 
@@ -48,6 +48,7 @@ body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
+  color: white;
   // background-color: rgb(93, 55, 182);
   background-image: linear-gradient(rgb(33, 38, 110), rgba(35, 3, 180, 0.842));
 }

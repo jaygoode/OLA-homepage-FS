@@ -8,6 +8,7 @@ import Events from "./pages/Events";
 import Event from "./pages/Event";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path=":eventId" element={<Event />} />
         </Route>
         <Route path="profile" element={<Profile />} />
+        <Route path="contact" element={<Contact />} />
         <Route path="login" element={<Login />} />
       </Routes>
       {/* </Box> */}

@@ -30,25 +30,9 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Container } from "@mui/material";
 import Stack from "@mui/material/Stack";
-
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { productId } = useParams();
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+import { updateUser } from "../redux/reducers/userReducer";
 
 export default function Events() {
-  const [expanded, setExpanded] = React.useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [createEventModal, setCreateEventModal] = useState(false);
   const [eventUpdate, setEventUpdate] = useState({
@@ -67,10 +51,6 @@ export default function Events() {
   useEffect(() => {
     dispatch(getAllEvents());
   }, [events, eventUpdate]);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   const toggleEditModal = () => {
     console.log(eventUpdate);
@@ -110,6 +90,13 @@ export default function Events() {
     setNewEvent({ ...newEvent, [e.target.name]: e.target.value });
   };
 
+  const handleGoingToEvent = (id: string) => {
+    console.log("click");
+    if (currentUser) {
+      dispatch(updateUser({ _id: currentUser._id, goingToEvent: id }));
+    }
+  };
+
   return (
     <>
       <Container className="event-container">
@@ -135,8 +122,7 @@ export default function Events() {
               events.map((event) => (
                 <>
                   <Card className="event-card">
-                    {events ? (
-                      // currentUser && currentUser.role === "admin"
+                    {currentUser && currentUser.role === "admin" ? (
                       <Container>
                         <IconButton
                           aria-label="edit"
@@ -158,24 +144,24 @@ export default function Events() {
                         </IconButton>
                       </Container>
                     ) : null}
-                    <CardHeader
-                      avatar={
-                        <Avatar
-                          sx={{ bgcolor: blue[500] }}
-                          aria-label="ola-logo"
-                        >
-                          OLA
-                        </Avatar>
-                      }
-                      title="Event"
-                      subheader={event.date}
-                    />
                     <div className="card-middle-section">
                       <img
                         src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd1fs8ljxwyzba6.cloudfront.net%2Fassets%2Farticle%2F2019%2F11%2F15%2Fdreamhack-atlanta-lan-essentials_feature.jpg&f=1&nofb=1"
                         alt="picture of event"
                       />
                       <CardContent>
+                        <CardHeader
+                          avatar={
+                            <Avatar
+                              sx={{ bgcolor: blue[500] }}
+                              aria-label="ola-logo"
+                            >
+                              OLA
+                            </Avatar>
+                          }
+                          title="Event"
+                          subheader={event.date}
+                        />
                         <Typography variant="body2" color="text.secondary">
                           {event.description}
                         </Typography>
@@ -183,25 +169,14 @@ export default function Events() {
                     </div>
                     <CardActions disableSpacing>
                       <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
+                        <FavoriteIcon
+                          onClick={() => handleGoingToEvent(event._id)}
+                        />
                       </IconButton>
                       <IconButton aria-label="share">
                         <ShareIcon />
                       </IconButton>
-                      <ExpandMore
-                        expand={expanded}
-                        onClick={handleExpandClick}
-                        aria-expanded={expanded}
-                        aria-label="show more"
-                      >
-                        <ExpandMoreIcon />
-                      </ExpandMore>
                     </CardActions>
-                    <Collapse in={expanded} timeout="auto" unmountOnExit>
-                      <CardContent>
-                        <Typography paragraph>Longer description</Typography>
-                      </CardContent>
-                    </Collapse>
                   </Card>
                 </>
               ))
@@ -248,14 +223,7 @@ export default function Events() {
                       required
                     />
                   </CardContent>
-                  <CardActions disableSpacing>
-                    <ExpandMore
-                      expand={expanded}
-                      onClick={handleExpandClick}
-                      aria-expanded={expanded}
-                      aria-label="show more"
-                    ></ExpandMore>
-                  </CardActions>
+                  <CardActions disableSpacing></CardActions>
                   <CardContent>
                     <Typography paragraph>longer description</Typography>
                     <IconButton aria-label="save" onClick={saveHandler}>

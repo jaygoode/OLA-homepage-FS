@@ -28,9 +28,9 @@ import { useContext } from "react";
 const NavBar = () => {
   const loggedInUser = useAppSelector((state) => state.userReducer.currentUser);
   const dispatch = useAppDispatch();
-  let navItems = ["Home", "Events", "Cart", "Login"];
+  let navItems = ["Home", "Events", "Contact", "Login"];
   if (loggedInUser) {
-    navItems = ["Home", "Events", "Cart", "Profile"];
+    navItems = ["Home", "Events", "Contact", "Profile"];
   }
 
   //   const theme = useTheme();
@@ -48,7 +48,7 @@ const NavBar = () => {
 
   return (
     <>
-      <Box className="nav-container">
+      <AppBar className="nav-container" position="sticky">
         <Toolbar className="navbar">
           <IconButton
             color="inherit"
@@ -93,7 +93,7 @@ const NavBar = () => {
             </Button>
           )}
         </Toolbar>
-      </Box>
+      </AppBar>
     </>
   );
 };

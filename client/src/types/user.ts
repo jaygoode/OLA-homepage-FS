@@ -5,6 +5,7 @@ export interface User {
   email: string;
   password: string;
   role: "customer" | "admin";
+  goingToEvent: string;
 }
 
 export interface Credentials {

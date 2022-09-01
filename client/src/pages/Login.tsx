@@ -36,11 +36,6 @@ export const Login = () => {
 
   return (
     <div>
-      <AppBar
-        position="static"
-        //   alignitems="center"
-        color="primary"
-      ></AppBar>
       <Grid container spacing={1} justifyContent="center" direction="row">
         <Grid item>
           <Grid
@@ -61,7 +56,7 @@ export const Login = () => {
                 </Typography>
               </Grid>
               <Grid item>
-                <form onSubmit={handleSubmit} className="form">
+                <form onSubmit={handleSubmit} className="Form">
                   <Grid container direction="column" spacing={2}>
                     <Grid item>
                       <TextField

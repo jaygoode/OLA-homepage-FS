@@ -11,12 +11,17 @@ import React from "react";
 import { Container } from "@material-ui/core";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
+import Box from "@mui/material/Box";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 const Profile = () => {
   const loggedInUser = useAppSelector((state) => state.userReducer.currentUser);
@@ -37,7 +42,7 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getUsers());
     console.log(userList);
-  }, [loggedInUser, otherNameChange, handleDelete]);
+  }, [loggedInUser, otherNameChange, otherRoleChange, otherPasswordChange]);
 
   // const [user, setUser] = useState({
   //   _id: "",
@@ -70,6 +75,9 @@ const Profile = () => {
   const handleRoleChange = (e: { target: { name: string; value: string } }) => {
     setRole({ ...role, [e.target.name]: e.target.value });
   };
+  const handleOtherRoleChange = (e: any) => {
+    setRole({ ...role, role: e.target.value });
+  };
   // const setLoggedInUserId = (id: string) => {
   //   setName({ _id: id, firstname: "" });
   //   setPassword({ _id: id, password: "" });
@@ -86,91 +94,113 @@ const Profile = () => {
       {loggedInUser ? (
         <Container>
           <h2 className="profile-header">Profile page</h2>
+
           <Card className="profile-card">
             <img
               className="profile-pic"
               src="https://bestprofilepictures.com/wp-content/uploads/2021/04/Cool-Profile-Picture-986x1024.jpg"
               alt="user avatar"
             />
-            <CardContent className="profile-info">
-              <div className="user-Info">
-                {!nameChange ? (
-                  <Typography gutterBottom variant="h5" component="div">
-                    {loggedInUser.firstname}
-                  </Typography>
-                ) : (
-                  <TextField
-                    id="standard-basic"
-                    label="name"
-                    name="firstname"
-                    variant="standard"
-                    onChange={handleNameChange}
-                  />
-                )}
-                <Button
-                  size="small"
-                  onClick={() => {
-                    setUserId(loggedInUser._id);
-                    setNameChange(!nameChange);
-                    dispatch(updateUser(name));
-                  }}
-                >
-                  Change
-                </Button>
-              </div>
-              {!passwordChange ? (
-                <Typography gutterBottom variant="h5" component="div">
-                  Password
-                </Typography>
-              ) : (
-                <TextField
-                  id="standard-basic"
-                  label="Password"
-                  name="password"
-                  variant="standard"
-                  type="password"
-                  onChange={handlePasswordChange}
-                />
-              )}
-              <Button
-                size="small"
-                onClick={() => {
-                  setUserId(loggedInUser._id);
-                  setPasswordChange(!passwordChange);
-                  dispatch(updateUser(password));
-                }}
-              >
-                Change
-              </Button>
-
-              {!roleChange ? (
-                <Typography gutterBottom variant="h5" component="div">
-                  {loggedInUser.role}
-                </Typography>
-              ) : (
-                <TextField
-                  id="standard-basic"
-                  label="role"
-                  name="role"
-                  variant="standard"
-                  onChange={handleRoleChange}
-                />
-              )}
-              {loggedInUser?.role === "admin" && (
-                <>
+            <Box>
+              <CardContent className="profile-info">
+                <div className="user-Info">
+                  {!nameChange ? (
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      className="user-text"
+                    >
+                      {loggedInUser.firstname}
+                    </Typography>
+                  ) : (
+                    <TextField
+                      id="standard-basic"
+                      label="name"
+                      name="firstname"
+                      variant="standard"
+                      onChange={handleNameChange}
+                    />
+                  )}
                   <Button
                     size="small"
                     onClick={() => {
                       setUserId(loggedInUser._id);
-                      setRoleChange(!roleChange);
-                      dispatch(updateUser(role));
+                      setNameChange(!nameChange);
+                      dispatch(updateUser(name));
                     }}
                   >
                     Change
                   </Button>
-                </>
-              )}
-            </CardContent>
+                  {!passwordChange ? (
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      className="user-text"
+                    >
+                      Password
+                    </Typography>
+                  ) : (
+                    <TextField
+                      id="standard-basic"
+                      label="Password"
+                      name="password"
+                      variant="standard"
+                      type="password"
+                      onChange={handlePasswordChange}
+                    />
+                  )}
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      setUserId(loggedInUser._id);
+                      setPasswordChange(!passwordChange);
+                      dispatch(updateUser(password));
+                    }}
+                  >
+                    Change
+                  </Button>
+
+                  {!roleChange ? (
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      className="user-text"
+                    >
+                      {loggedInUser.role}
+                    </Typography>
+                  ) : (
+                    <>
+                      <InputLabel id="role">Role</InputLabel>
+                      <Select
+                        labelId="role"
+                        id="role"
+                        value={loggedInUser.role}
+                        onChange={handleOtherRoleChange}
+                        label="role"
+                      >
+                        <MenuItem value="admin">Admin</MenuItem>
+                        <MenuItem value="customer">Customer</MenuItem>
+                      </Select>
+                    </>
+                  )}
+                  {loggedInUser?.role === "admin" && (
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        setUserId(loggedInUser._id);
+                        setRoleChange(!roleChange);
+                        dispatch(updateUser(role));
+                      }}
+                    >
+                      Change
+                    </Button>
+                  )}
+                </div>
+              </CardContent>
+            </Box>
           </Card>
         </Container>
       ) : (
@@ -179,7 +209,7 @@ const Profile = () => {
 
       {loggedInUser && loggedInUser.role === "admin" ? (
         userList.map((user) => (
-          <Container>
+          <div>
             <Card className="profile-card">
               <img
                 className="profile-pic"
@@ -187,12 +217,7 @@ const Profile = () => {
                 alt="other user avatar"
               />
               <CardContent className="profile-info">
-                <Typography
-                  gutterBottom
-                  variant="h5"
-                  component="div"
-                  // className="profile-info"
-                >
+                <Container className="user-Info">
                   {otherNameChange && name._id === user._id ? (
                     <TextField
                       id="standard-basic"
@@ -217,74 +242,86 @@ const Profile = () => {
                   >
                     Change
                   </Button>
-                </Typography>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    size="small"
+                    onClick={() => handleDelete(user._id)}
+                  >
+                    Delete
+                  </Button>
 
-                {!otherPasswordChange ? (
-                  <Typography gutterBottom variant="h5" component="div">
-                    Password
-                  </Typography>
-                ) : (
-                  <TextField
-                    id="standard-basic"
-                    label="Password"
-                    name="password"
-                    variant="standard"
-                    type="password"
-                    onChange={handlePasswordChange}
-                  />
-                )}
-                <Button
-                  size="small"
-                  onClick={() => {
-                    setUserId(user._id);
-                    setOtherPasswordChange(!otherPasswordChange);
-                    dispatch(updateUser(password));
-                  }}
-                >
-                  Change
-                </Button>
+                  {!otherPasswordChange ? (
+                    <Typography gutterBottom variant="h5" component="div">
+                      Password
+                    </Typography>
+                  ) : (
+                    <TextField
+                      id="standard-basic"
+                      label="Password"
+                      name="password"
+                      variant="standard"
+                      type="password"
+                      onChange={handlePasswordChange}
+                    />
+                  )}
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      setUserId(user._id);
+                      setOtherPasswordChange(!otherPasswordChange);
+                      dispatch(updateUser(password));
+                    }}
+                  >
+                    Change
+                  </Button>
 
-                {!otherRoleChange ? (
-                  <Typography gutterBottom variant="h5" component="div">
-                    {user.role}
-                  </Typography>
-                ) : (
-                  <TextField
-                    id="standard-basic"
-                    label="role"
-                    name="role"
-                    variant="standard"
-                    onChange={handleRoleChange}
-                  />
-                )}
-                {loggedInUser?.role === "admin" && (
-                  <>
-                    <Button
-                      size="small"
-                      onClick={() => {
-                        setUserId(user._id);
-                        setOtherRoleChange(!otherRoleChange);
-                        dispatch(updateUser(role));
-                      }}
-                    >
-                      Change
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      color="error"
-                      size="small"
-                      onClick={() => handleDelete(user._id)}
-                    >
-                      Delete
-                    </Button>
-                  </>
-                )}
+                  {!otherRoleChange ? (
+                    <Typography gutterBottom variant="h5" component="div">
+                      {user.role}
+                    </Typography>
+                  ) : (
+                    <>
+                      <InputLabel id="role">Role</InputLabel>
+                      <Select
+                        labelId="role"
+                        id="role"
+                        value={user.role}
+                        onChange={handleOtherRoleChange}
+                        label="role"
+                      >
+                        <MenuItem value="admin">Admin</MenuItem>
+                        <MenuItem value="customer">Customer</MenuItem>
+                      </Select>
+                    </>
+                  )}
+                  {loggedInUser?.role === "admin" && (
+                    <>
+                      <Button
+                        size="small"
+                        onClick={() => {
+                          setUserId(user._id);
+                          setOtherRoleChange(!otherRoleChange);
+                          dispatch(updateUser(role));
+                        }}
+                      >
+                        Change
+                      </Button>
+                    </>
+                  )}
+
+                  {user && user.goingToEvent && (
+                    <Typography className="going-to-event">
+                      {user.goingToEvent}
+                    </Typography>
+                  )}
+                </Container>
               </CardContent>
             </Card>
-          </Container>
+          </div>
         ))
       ) : (
-        <Typography>you are not logged in.</Typography>
+        <Typography></Typography>
       )}
     </Container>
   );
