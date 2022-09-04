@@ -17,6 +17,6 @@ jobs:
       - name: Run build in client
         working-directory: client
         run: |
-          npm install
+          npm install --force
           npm run build 
           echo "completed build"
