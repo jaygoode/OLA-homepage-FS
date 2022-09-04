@@ -3,6 +3,7 @@ import mongoose, { Document, Schema } from 'mongoose'
 export interface EventDocument extends Document {
   date: string
   description: string
+  goingToEvent: string[]
 }
 
 const eventSchema = new Schema<EventDocument>({
@@ -13,6 +14,10 @@ const eventSchema = new Schema<EventDocument>({
   description: {
     type: String,
     required: true,
+  },
+  goingToEvent: {
+    type: [String],
+    required: false,
   },
 })
 

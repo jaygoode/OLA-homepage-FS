@@ -9,6 +9,7 @@ export interface UserDocument extends Document {
   email: string
   password: string
   role: UserRole
+  goingToEvent: string[]
   comparePassword(password: string): Promise<boolean>
 }
 
@@ -46,6 +47,7 @@ const userSchema = new Schema<UserDocument>({
     type: String,
     enum: ['customer', 'admin'],
   },
+  goingToEvent: [String],
 })
 
 userSchema.pre<UserDocument>(
