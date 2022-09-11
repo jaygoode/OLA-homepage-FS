@@ -1,11 +1,8 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { getSingleEvent, eventReducer } from "../redux/reducers/eventReducer";
-import { useDispatch } from "react-redux";
-import { Event } from "../types/event";
+import { getSingleEvent } from "../redux/reducers/eventReducer";
 
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
@@ -22,13 +19,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Container } from "@mui/material";
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { eventId } = useParams();
+  // const { eventId } = useParams();
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
@@ -49,7 +45,6 @@ export default function SingleEvent() {
     if (eventId) {
       dispatch(getSingleEvent(eventId));
     }
-    console.log(event);
   }, []);
 
   const handleExpandClick = () => {

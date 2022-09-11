@@ -1,5 +1,4 @@
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { Credentials, User } from "../types/user";
 import { useEffect, useState } from "react";
 import {
   getUsers,
@@ -7,21 +6,16 @@ import {
   deleteUser,
 } from "../redux/reducers/userReducer";
 
-import React from "react";
 import { Container } from "@material-ui/core";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import Box from "@mui/material/Box";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
 const Profile = () => {
   const loggedInUser = useAppSelector((state) => state.userReducer.currentUser);
@@ -41,7 +35,6 @@ const Profile = () => {
   };
   useEffect(() => {
     dispatch(getUsers());
-    console.log(userList);
   }, [loggedInUser, otherNameChange, otherRoleChange, otherPasswordChange]);
 
   // const [user, setUser] = useState({
@@ -72,9 +65,6 @@ const Profile = () => {
     setPassword({ ...password, [e.target.name]: e.target.value });
   };
 
-  const handleRoleChange = (e: { target: { name: string; value: string } }) => {
-    setRole({ ...role, [e.target.name]: e.target.value });
-  };
   const handleOtherRoleChange = (e: any) => {
     setRole({ ...role, role: e.target.value });
   };

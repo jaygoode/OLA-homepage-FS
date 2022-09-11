@@ -1,14 +1,4 @@
-import React from "react";
-import {
-  Button,
-  TextField,
-  Grid,
-  Paper,
-  AppBar,
-  Typography,
-  Toolbar,
-  Link,
-} from "@material-ui/core";
+import { Button, TextField, Grid, Paper, Typography } from "@material-ui/core";
 
 const Contact = () => {
   return (

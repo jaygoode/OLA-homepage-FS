@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { eventReducer } from "./reducers/eventReducer";
 import { userReducer } from "./reducers/userReducer";
-import { User, Credentials } from "../types/user";
+import { User } from "../types/user";
 
 let preUser: { currentUser: User | undefined } = { currentUser: undefined };
 const getUser = localStorage.getItem("user");

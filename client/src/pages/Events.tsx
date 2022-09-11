@@ -1,7 +1,4 @@
-import * as React from "react";
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import {
   getAllEvents,
@@ -10,24 +7,19 @@ import {
   deleteEvent,
   createEvent,
 } from "../redux/reducers/eventReducer";
-import { useDispatch } from "react-redux";
-import { Event } from "../types/event";
 import { Button } from "@material-ui/core";
 
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Container } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { updateUser } from "../redux/reducers/userReducer";

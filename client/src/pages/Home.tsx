@@ -1,5 +1,3 @@
-import React from "react";
-
 const Home = () => {
   return (
     <>
@@ -17,7 +15,7 @@ const Home = () => {
             </div>
             <img
               src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.carpella.fi%2Fassets%2FSlideshow%2F2018%2F02%2F_resampled%2FFillWzE5MjAsOTAwXQ%2F12119935-10153323532143795-1333538565765665767-o.jpg&f=1&nofb=1"
-              alt="picture of the Carpella event building"
+              alt="the Carpella event building"
             />
           </div>
         </article>
@@ -28,7 +26,7 @@ const Home = () => {
           <div className="card-container">
             <img
               src="https://scontent.fqlf1-2.fna.fbcdn.net/v/t1.6435-9/87439888_2675863009133501_8918633614598471680_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=9267fe&_nc_eui2=AeE5d3M70qSsJhAIIiN3k_Id3al2aYHaXxTdqXZpgdpfFGw52yMzqbHaDqG2X78wWow&_nc_ohc=eaGyZILhHbUAX_0RqGN&_nc_ht=scontent.fqlf1-2.fna&oh=00_AT9VHIf5sMoN5d-4Ip3E3JJDMQzN6lecqnkXviVSNM4kOQ&oe=6331FEFD"
-              alt="picture of the Carpella event building"
+              alt="the Carpella event building"
             />
             <div className="card-text-container">
               <h3 className="card-header">Hosting</h3>

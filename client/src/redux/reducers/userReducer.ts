@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import userEvent from "@testing-library/user-event";
 import { User, Credentials, UserReducerState } from "../../types/user";
 
 const initialState: UserReducerState = {
@@ -131,6 +130,7 @@ const userSlice = createSlice({
             user = action.payload;
             return user;
           }
+          return state;
         });
         if (state.currentUser && state.currentUser._id === action.payload._id) {
           state.currentUser = action.payload;
@@ -138,9 +138,9 @@ const userSlice = createSlice({
         return state;
       })
       .addCase(createUser.fulfilled, (state, action: PayloadAction<User>) => {
-        if (state.currentUser && state.currentUser.role == "customer") {
+        if (state.currentUser && state.currentUser.role === "customer") {
           state.currentUser = action.payload;
-        } else if (state.currentUser && state.currentUser.role == "admin") {
+        } else if (state.currentUser && state.currentUser.role === "admin") {
           state.userList.push(action.payload);
         }
         return state;

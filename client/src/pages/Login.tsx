@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { login } from "../redux/reducers/userReducer";
 import {
@@ -7,9 +7,7 @@ import {
   TextField,
   Grid,
   Paper,
-  AppBar,
   Typography,
-  Toolbar,
   Link,
 } from "@material-ui/core";
 

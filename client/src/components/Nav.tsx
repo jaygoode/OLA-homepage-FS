@@ -3,25 +3,19 @@ import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { logout } from "../redux/reducers/userReducer";
 
-import LightModeIcon from "@mui/icons-material/LightMode";
-import Brightness2Icon from "@mui/icons-material/Brightness2";
+// import LightModeIcon from "@mui/icons-material/LightMode";
+// import Brightness2Icon from "@mui/icons-material/Brightness2";
 import {
   Button,
   Toolbar,
   AppBar,
   Box,
-  Divider,
-  Drawer,
   IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useTheme } from "@mui/material";
-import { useContext } from "react";
+// import { useTheme } from "@mui/material";
+// import { useContext } from "react";
 
 // import ThemeContext from "../theme/ThemeContext";
 
