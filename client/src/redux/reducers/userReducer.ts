@@ -3,7 +3,15 @@ import { User, Credentials, UserReducerState } from "../../types/user";
 
 const initialState: UserReducerState = {
   userList: [],
-  currentUser: undefined,
+  currentUser: {
+    _id: "630a1ec68730e0a256ecf8dc",
+    firstname: "burnham",
+    lastname: "admin",
+    email: "admin@gmail.com",
+    password: "$2b$10$kBbRpmy2o4FLznWUv9qXLOvGsewlrKmLqLcJxnABHCJlvAOPEO7Li",
+    role: "admin",
+    goingToEvent: "63063ad92f337a8229cfa2f4",
+  },
 };
 
 export const getUsers = createAsyncThunk("getUsers", async () => {
@@ -126,7 +134,6 @@ const userSlice = createSlice({
       .addCase(updateUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.userList.map((user) => {
           if (user._id === action.payload._id) {
-            console.log(action.payload);
             user = action.payload;
             return user;
           }
@@ -150,6 +157,7 @@ const userSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action: PayloadAction<User>) => {
         state.currentUser = action.payload;
+        console.log(action.payload);
         return state;
       });
   },

@@ -5,6 +5,7 @@ import {
   updateUser,
   deleteUser,
 } from "../redux/reducers/userReducer";
+import { getAllEvents } from "../redux/reducers/eventReducer";
 
 import { Container } from "@material-ui/core";
 import Card from "@mui/material/Card";
@@ -20,6 +21,7 @@ import Select from "@mui/material/Select";
 const Profile = () => {
   const loggedInUser = useAppSelector((state) => state.userReducer.currentUser);
   const userList = useAppSelector((state) => state.userReducer.userList);
+  const events = useAppSelector((state) => state.eventReducer.eventList);
   const dispatch = useAppDispatch();
 
   const [nameChange, setNameChange] = useState(false);
@@ -35,6 +37,7 @@ const Profile = () => {
   };
   useEffect(() => {
     dispatch(getUsers());
+    dispatch(getAllEvents());
   }, [loggedInUser, otherNameChange, otherRoleChange, otherPasswordChange]);
 
   // const [user, setUser] = useState({
@@ -187,6 +190,9 @@ const Profile = () => {
                     >
                       Change
                     </Button>
+                  )}
+                  {loggedInUser?.goingToEvent && (
+                    <Typography>{events[1]._id}</Typography>
                   )}
                 </div>
               </CardContent>

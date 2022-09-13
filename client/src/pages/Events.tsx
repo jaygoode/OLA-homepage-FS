@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import {
   getAllEvents,
-  eventReducer,
   updateEvent,
   deleteEvent,
   createEvent,
 } from "../redux/reducers/eventReducer";
+import { getUsers, updateUser } from "../redux/reducers/userReducer";
 import { Button } from "@material-ui/core";
 
 import Card from "@mui/material/Card";
@@ -15,14 +15,13 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
-import IconButton, { IconButtonProps } from "@mui/material/IconButton";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { Container } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { updateUser } from "../redux/reducers/userReducer";
 
 export default function Events() {
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -38,10 +37,12 @@ export default function Events() {
   });
   const events = useAppSelector((state) => state.eventReducer.eventList);
   const currentUser = useAppSelector((state) => state.userReducer.currentUser);
+  const users = useAppSelector((state) => state.userReducer.userList);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getAllEvents());
+    dispatch(getUsers());
   }, [events, eventUpdate]);
 
   const toggleEditModal = () => {
@@ -139,7 +140,8 @@ export default function Events() {
                     <div className="card-middle-section">
                       <img
                         src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd1fs8ljxwyzba6.cloudfront.net%2Fassets%2Farticle%2F2019%2F11%2F15%2Fdreamhack-atlanta-lan-essentials_feature.jpg&f=1&nofb=1"
-                        alt="picture of event"
+                        alt="
+                        event"
                       />
                       <CardContent>
                         <CardHeader
@@ -168,6 +170,12 @@ export default function Events() {
                       <IconButton aria-label="share">
                         <ShareIcon />
                       </IconButton>
+                      {/* {users &&
+                        users.map((user) => {
+                          if (event._id === user.goingToEvent) {
+                            return <Typography>{user.firstname}</Typography>;
+                          }
+                        })} */}
                     </CardActions>
                   </Card>
                 </>
