@@ -51,7 +51,6 @@ export const updateEvent = async (
   try {
     const id = req.body.update._id
     const eventUpdate = req.body.update
-    console.log(eventUpdate)
     res.status(200).send(await eventService.updateEvent(id, eventUpdate))
   } catch (e) {
     return next(e)

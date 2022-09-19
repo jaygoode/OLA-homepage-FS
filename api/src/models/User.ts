@@ -9,7 +9,7 @@ export interface UserDocument extends Document {
   email: string
   password: string
   role: UserRole
-  goingToEvent: string[]
+  goingToEvent: string | undefined | null
   comparePassword(password: string): Promise<boolean>
 }
 

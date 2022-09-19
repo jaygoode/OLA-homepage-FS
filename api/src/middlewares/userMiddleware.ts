@@ -11,10 +11,8 @@ export const verifyCredentials = async (
 ) => {
   const { email, password } = req.body
   const foundUser = await User.findOne({ email: email })
-  console.log('founduserMware ' + foundUser)
   if (foundUser) {
     const checkPassword = await foundUser.comparePassword(password)
-    console.log('foundpassMware ' + checkPassword)
     if (checkPassword) {
       next()
     } else {
@@ -34,12 +32,10 @@ export const verifyToken = async (
   // const token = authHeader && authHeader.split(' ')[1]
   // if (token == null) return res.sendStatus(401)
   const token = req.body
-  console.log('mware')
 
   jwt.verify(token, JWT_SECRET, (error: any, credentials: any) => {
     if (error) return res.sendStatus(403)
     req.user = credentials
-    console.log('verify')
     next()
   })
 }
