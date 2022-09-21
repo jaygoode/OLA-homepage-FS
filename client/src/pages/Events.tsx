@@ -113,72 +113,66 @@ export default function Events() {
           <div>
             {!openEditModal && events ? (
               events.map((event) => (
-                <>
-                  <Card className="event-card">
-                    {currentUser && currentUser.role === "admin" ? (
-                      <Container>
-                        <IconButton
-                          aria-label="edit"
-                          onClick={() =>
-                            eventHandler(
-                              event._id,
-                              event.description,
-                              event.date
-                            )
-                          }
-                        >
-                          {openEditModal ? <p>Cancel</p> : <p>Edit</p>}
-                        </IconButton>
-                        <IconButton
-                          aria-label="delete"
-                          onClick={() => deleteHandler(event._id)}
-                        >
-                          <p>Delete</p>
-                        </IconButton>
-                      </Container>
-                    ) : null}
-                    <div className="card-middle-section">
-                      <img
-                        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd1fs8ljxwyzba6.cloudfront.net%2Fassets%2Farticle%2F2019%2F11%2F15%2Fdreamhack-atlanta-lan-essentials_feature.jpg&f=1&nofb=1"
-                        alt="
+                <Card className="event-card" key={event._id}>
+                  {currentUser && currentUser.role === "admin" ? (
+                    <Container>
+                      <IconButton
+                        aria-label="edit"
+                        onClick={() =>
+                          eventHandler(event._id, event.description, event.date)
+                        }
+                      >
+                        {openEditModal ? <p>Cancel</p> : <p>Edit</p>}
+                      </IconButton>
+                      <IconButton
+                        aria-label="delete"
+                        onClick={() => deleteHandler(event._id)}
+                      >
+                        <p>Delete</p>
+                      </IconButton>
+                    </Container>
+                  ) : null}
+                  <div className="card-middle-section">
+                    <img
+                      src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd1fs8ljxwyzba6.cloudfront.net%2Fassets%2Farticle%2F2019%2F11%2F15%2Fdreamhack-atlanta-lan-essentials_feature.jpg&f=1&nofb=1"
+                      alt="
                         event"
+                    />
+                    <CardContent>
+                      <CardHeader
+                        avatar={
+                          <Avatar
+                            sx={{ bgcolor: blue[500] }}
+                            aria-label="ola-logo"
+                          >
+                            OLA
+                          </Avatar>
+                        }
+                        title="Event"
+                        subheader={event.date}
                       />
-                      <CardContent>
-                        <CardHeader
-                          avatar={
-                            <Avatar
-                              sx={{ bgcolor: blue[500] }}
-                              aria-label="ola-logo"
-                            >
-                              OLA
-                            </Avatar>
-                          }
-                          title="Event"
-                          subheader={event.date}
-                        />
-                        <Typography variant="body2" color="text.secondary">
-                          {event.description}
-                        </Typography>
-                      </CardContent>
-                    </div>
-                    <CardActions disableSpacing>
-                      <IconButton aria-label="add to favorites">
-                        <FavoriteIcon
-                          onClick={() => handleGoingToEvent(event._id)}
-                        />
-                      </IconButton>
-                      <IconButton aria-label="share">
-                        <ShareIcon />
-                      </IconButton>
-                      {/* {users &&
+                      <Typography variant="body2" color="text.secondary">
+                        {event.description}
+                      </Typography>
+                    </CardContent>
+                  </div>
+                  <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites">
+                      <FavoriteIcon
+                        onClick={() => handleGoingToEvent(event._id)}
+                      />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <ShareIcon />
+                    </IconButton>
+                    {/* {users &&
                         users.map((user) => {
                           if (event._id === user.goingToEvent) {
                             return <Typography>{user.firstname}</Typography>;
                           }
                         })} */}
-                    </CardActions>
-                  </Card>
-                </>
+                  </CardActions>
+                </Card>
               ))
             ) : (
               <Card className="event-card">

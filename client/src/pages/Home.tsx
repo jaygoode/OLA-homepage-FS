@@ -9,7 +9,7 @@ const Home = () => {
               <p className="card-paragraph">
                 to the Ostrobothnia LAN association home page! We are a small
                 group of gaming fanatics who are giving people the chance to
-                spend weekends gaming and watching tournaments for fame glory
+                spend weekends gaming and watching tournaments for fame, glory
                 and sweet prices!
               </p>
             </div>
