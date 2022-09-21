@@ -1,9 +1,16 @@
-import { Button, TextField, Grid, Paper, Typography } from "@material-ui/core";
+import {
+  Button,
+  TextField,
+  Grid,
+  Paper,
+  Typography,
+  Container,
+} from "@material-ui/core";
 
 const Contact = () => {
   return (
     <>
-      <div>
+      <Container>
         <Grid container spacing={1} justifyContent="center" direction="row">
           <Grid item>
             <Grid
@@ -21,7 +28,7 @@ const Contact = () => {
                   payment.
                 </Grid>
                 <Grid item>
-                  <form className="Form">
+                  <Container className="Form">
                     <Grid container direction="column" spacing={2}>
                       <Grid item>
                         <TextField
@@ -54,13 +61,13 @@ const Contact = () => {
                         </Button>
                       </Grid>
                     </Grid>
-                  </form>
+                  </Container>
                 </Grid>
               </Paper>
             </Grid>
           </Grid>
         </Grid>
-      </div>
+      </Container>
     </>
   );
 };

@@ -1,8 +1,12 @@
 .login-background{
     margin:3em;
+    padding: 1em; 
 }
 .Form{
     width: 20em;
-    padding: 1em;
-    // background-color: red;
 }
+@media screen and (max-width: 500px) {
+    .Form{
+        width: 10em;
+    }
+  }

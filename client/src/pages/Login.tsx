@@ -9,6 +9,7 @@ import {
   Paper,
   Typography,
   Link,
+  Container,
 } from "@material-ui/core";
 
 export const Login = () => {
@@ -33,7 +34,7 @@ export const Login = () => {
   };
 
   return (
-    <div>
+    <Container>
       <Grid container spacing={1} justifyContent="center" direction="row">
         <Grid item>
           <Grid
@@ -103,7 +104,7 @@ export const Login = () => {
           </Grid>
         </Grid>
       </Grid>
-    </div>
+    </Container>
   );
 };
 
