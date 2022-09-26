@@ -31,8 +31,8 @@ const Home = () => {
             <div className="card-text-container">
               <h3 className="card-header">Hosting</h3>
               <p className="card-paragraph">
-                Local Area Network parties since 1995 up to 120 people at a
-                time, Tournaments with prices such as the Playstation 5, game
+                Local Area Network parties since 1995 up to 120 people at a time
+                with tournaments including prices like the Playstation 5, game
                 copies, and giftcards to electronic stores!
               </p>
             </div>

@@ -88,6 +88,7 @@ export default function Events() {
     if (currentUser) {
       dispatch(updateUser({ _id: currentUser._id, goingToEvent: id }));
     }
+    console.log(currentUser?.goingToEvent);
   };
 
   return (
@@ -165,12 +166,23 @@ export default function Events() {
                     <IconButton aria-label="share">
                       <ShareIcon />
                     </IconButton>
-                    {/* {users &&
-                        users.map((user) => {
-                          if (event._id === user.goingToEvent) {
-                            return <Typography>{user.firstname}</Typography>;
-                          }
-                        })} */}
+                    {users &&
+                      users.filter((user) =>
+                        user.goingToEvent.includes(event._id)
+                      ).length <= 2 &&
+                      users.map((user) => {
+                        if (
+                          user.goingToEvent &&
+                          user.goingToEvent.includes(event._id)
+                        ) {
+                          return (
+                            <>
+                              <Typography>{user.firstname} &nbsp;</Typography>
+                              <Typography>{users.length}</Typography>
+                            </>
+                          );
+                        }
+                      })}
                   </CardActions>
                 </Card>
               ))
