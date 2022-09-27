@@ -191,9 +191,9 @@ const Profile = () => {
                       Change
                     </Button>
                   )}
-                  {loggedInUser?.goingToEvent && (
+                  {/* {loggedInUser?.goingToEvent && (
                     <Typography>{events[1]._id}</Typography>
-                  )}
+                  )} */}
                 </div>
               </CardContent>
             </Box>
@@ -205,7 +205,7 @@ const Profile = () => {
 
       {loggedInUser && loggedInUser.role === "admin" ? (
         userList.map((user) => (
-          <div>
+          <Container key={user._id}>
             <Card className="profile-card">
               <img
                 className="profile-pic"
@@ -306,15 +306,15 @@ const Profile = () => {
                     </>
                   )}
 
-                  {user && user.goingToEvent && (
+                  {/* {user && user.goingToEvent && (
                     <Typography className="going-to-event">
                       {user.goingToEvent}
                     </Typography>
-                  )}
+                  )} */}
                 </Container>
               </CardContent>
             </Card>
-          </div>
+          </Container>
         ))
       ) : (
         <Typography></Typography>

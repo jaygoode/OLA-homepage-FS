@@ -167,8 +167,10 @@ export default function Events() {
                       <ShareIcon />
                     </IconButton>
                     {users &&
-                    users.filter((user) =>
-                      user.goingToEvent.includes(event._id)
+                    users.filter(
+                      (user) =>
+                        user.goingToEvent &&
+                        user.goingToEvent.includes(event._id)
                     ).length <= 1 ? (
                       users.map((user) => {
                         if (
@@ -182,27 +184,13 @@ export default function Events() {
                       })
                     ) : (
                       <>
-                        {users.map((user) => {
-                          if (
-                            user.goingToEvent &&
-                            user.goingToEvent.includes(event._id)
-                          ) {
-                            return (
-                              <Typography>{user.firstname} &nbsp;</Typography>
-                            );
-                            break;
-                          }
-                        })}
-
-                        <Typography>&nbsp;</Typography>
-                        <Typography> and&nbsp; </Typography>
                         <Typography>
                           {
                             users.filter((user) =>
                               user.goingToEvent.includes(event._id)
                             ).length
                           }
-                          more.
+                          &nbsp; people are going.
                         </Typography>
                       </>
                     )}

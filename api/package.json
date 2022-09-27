@@ -11,6 +11,7 @@
   "scripts": {
     "start:prod": "node dist/server.js",
     "start:dev": "nodemon src/server.ts",
+    "start": "node src/server.ts",
     "build": "tsc",
     "watch-ts": "tsc -w",
     "test": "jest --forceExit --detectOpenHandles --coverage --verbose false",
