@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
     "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -15,5 +15,9 @@
     },
     "skipLibCheck": true,
   },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+},
   "include": ["src/**/*"]
 }
