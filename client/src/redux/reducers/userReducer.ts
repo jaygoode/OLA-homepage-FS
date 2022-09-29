@@ -16,7 +16,7 @@ const initialState: UserReducerState = {
 
 export const getUsers = createAsyncThunk("getUsers", async () => {
   try {
-    const data = await fetch("http://localhost:5000/users");
+    const data = await fetch("https://ola-homepage-api.herokuapp.com/users");
     let result = await data.json();
     return result;
   } catch (error: any) {
@@ -29,13 +29,16 @@ export const updateUser = createAsyncThunk(
   async (update: Partial<User>) => {
     try {
       console.log(update);
-      const response = await fetch(`http://localhost:5000/users/`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(update),
-      });
+      const response = await fetch(
+        `https://ola-homepage-api.herokuapp.com/users/`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(update),
+        }
+      );
       const result = await response.json();
       return result;
     } catch (error: any) {
@@ -47,19 +50,22 @@ export const updateUser = createAsyncThunk(
 export const createUser = createAsyncThunk("createUser", async (user: User) => {
   const { firstname, lastname, email, password, role } = user;
   try {
-    const response = await fetch("http://localhost:5000/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstname: firstname,
-        lastname: lastname,
-        password: password,
-        email: email,
-        role: role,
-      }),
-    });
+    const response = await fetch(
+      "https://ola-homepage-api.herokuapp.com/users",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstname: firstname,
+          lastname: lastname,
+          password: password,
+          email: email,
+          role: role,
+        }),
+      }
+    );
     const result = await response.json();
     console.log(result);
     return result;
@@ -70,9 +76,12 @@ export const createUser = createAsyncThunk("createUser", async (user: User) => {
 
 export const deleteUser = createAsyncThunk("deleteUser", async (id: string) => {
   try {
-    const response = await fetch(`http://localhost:5000/users/${id}`, {
-      method: "DELETE",
-    });
+    const response = await fetch(
+      `https://ola-homepage-api.herokuapp.com/users/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
     const result = await response.json();
     return result;
   } catch (error: any) {
@@ -85,16 +94,19 @@ export const login = createAsyncThunk(
   async (credentials: Credentials) => {
     const { email, password } = credentials;
     try {
-      const response = await fetch("http://localhost:5000/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          password: password,
-          email: email,
-        }),
-      });
+      const response = await fetch(
+        "https://ola-homepage-api.herokuapp.com/users/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            password: password,
+            email: email,
+          }),
+        }
+      );
       const result = await response.json();
       console.log(result);
       return result;

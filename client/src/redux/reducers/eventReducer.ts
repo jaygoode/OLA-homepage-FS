@@ -7,7 +7,7 @@ const initialState: eventReducerState = {
 
 export const getAllEvents = createAsyncThunk("getAllEvents", async () => {
   try {
-    const data = await fetch("http://localhost:5000/events");
+    const data = await fetch("https://ola-homepage-api.herokuapp.com/events");
     let result = await data.json();
     return result;
   } catch (error: any) {
@@ -19,7 +19,9 @@ export const getSingleEvent = createAsyncThunk(
   "getSingleEvent",
   async (eventId: string) => {
     try {
-      const data = await fetch(`http://localhost:5000/events/${eventId}`);
+      const data = await fetch(
+        `https://ola-homepage-api.herokuapp.com/events/${eventId}`
+      );
       let result = await data.json();
       return result;
     } catch (error: any) {
@@ -33,16 +35,19 @@ export const createEvent = createAsyncThunk(
     const { date, description } = event;
     console.log(event);
     try {
-      const response = await fetch("http://localhost:5000/events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          date: date,
-          description: description,
-        }),
-      });
+      const response = await fetch(
+        "https://ola-homepage-api.herokuapp.com/events",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            date: date,
+            description: description,
+          }),
+        }
+      );
       const result = await response.json();
       return result;
     } catch (error: any) {
@@ -57,7 +62,7 @@ export const updateEvent = createAsyncThunk(
     try {
       console.log(update._id);
       const response = await fetch(
-        `http://localhost:5000/events/${update._id}`,
+        `https://ola-homepage-api.herokuapp.com/events/${update._id}`,
         {
           method: "PATCH",
           headers: {
@@ -82,9 +87,12 @@ export const deleteEvent = createAsyncThunk(
   async (id: string) => {
     try {
       console.log(id);
-      const response = await fetch(`http://localhost:5000/events/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://ola-homepage-api.herokuapp.com/events/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       const result = await response.json();
       console.log(result);
       return result;
