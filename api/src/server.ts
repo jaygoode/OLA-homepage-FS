@@ -1,11 +1,18 @@
 // import errorHandler from 'errorhandler'
 import mongoose from 'mongoose'
-
+import path from 'path'
 import app from './app'
 import { MONGODB_URI } from './util/secrets'
 import logger from './util/logger'
+import express from 'express'
 
 const mongoUrl = MONGODB_URI
+
+app.use(express.static(path.resolve(__dirname, '../../client/build')))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../../client/build', 'index.html'))
+})
 
 mongoose
   .connect(mongoUrl)
