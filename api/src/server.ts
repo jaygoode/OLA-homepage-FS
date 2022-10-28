@@ -33,7 +33,7 @@ mongoose
 // if (process.env.NODE_ENV === 'development') {
 //   app.use(errorHandler())
 // }
-// huh
+
 // Start Express server
 app.listen(app.get('port'), () => {
   console.log(
