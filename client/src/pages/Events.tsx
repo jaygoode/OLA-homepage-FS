@@ -101,7 +101,7 @@ export default function Events() {
           spacing={2}
         >
           <Typography className="events-header-container">
-            <h2 className="events-header">events</h2>
+            <h2 className="events-header">Events</h2>
 
             {currentUser?.role === "admin" && (
               <Button variant="contained" onClick={toggleCreateModal}>
