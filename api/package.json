@@ -16,7 +16,7 @@
         "test": "jest --forceExit --detectOpenHandles --coverage --verbose false",
         "watch-test": "npm run test -- --watchAll",
         "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
-        "heroku-postbuild":"cd ../client/ && npm install && npm run build",
+        "heroku-postbuild": "cd ../client/ && npm install && npm run build",
         "start": "ts-node src/server.ts"
     },
     "engines": {
@@ -59,6 +59,7 @@
         "mongodb-memory-server": "^6.3.1",
         "mongoose": "^6.5.1",
         "passport": "^0.6.0",
+        "passport-jwt": "^4.0.0",
         "passport-local": "^1.0.0",
         "react": "^17.0.0",
         "react-dom": "^17.0.0",
