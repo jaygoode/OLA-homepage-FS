@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import User, { UserRole, UserDocument } from '../models/User'
-import { UnauthorizedError } from '../helpers/apiError'
+import { UnauthorizedError, NotFoundError } from '../helpers/apiError'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from '../util/secrets'
 
@@ -23,14 +23,11 @@ export const verifyCredentials = async (
   }
 }
 
-export const verifyToken = async (
+export const verifyToken1 = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  // const authHeader = req.headers['authorization']
-  // const token = authHeader && authHeader.split(' ')[1]
-  // if (token == null) return res.sendStatus(401)
   const token = req.body
 
   jwt.verify(token, JWT_SECRET, (error: any, credentials: any) => {
@@ -38,6 +35,16 @@ export const verifyToken = async (
     req.user = credentials
     next()
   })
+}
+
+const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+  const { token } = req.body
+  const decoded = jwt.verify(token, `${process.env.JWT_SECRET}`)
+  if (decoded) {
+    return res.json(decoded)
+  } else {
+    throw new NotFoundError()
+  }
 }
 
 export const verifyAdmin = (

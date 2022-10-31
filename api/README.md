@@ -4,7 +4,7 @@ API routes:
 
 /users/
 
-- GET:shows registered users with all data, encrypted passwords
+- GET:shows registered users with all data(see entire user structure), encrypted passwords
 - POST: create User
 - PATCH: update user data with ID
 
