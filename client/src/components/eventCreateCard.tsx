@@ -18,14 +18,8 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import { Container } from "@mui/material";
-import Stack from "@mui/material/Stack";
 
-import React from "react";
-
-const EventEditCard = () => {
+const EventCreateCard = () => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [createEventModal, setCreateEventModal] = useState(false);
   const [eventUpdate, setEventUpdate] = useState({
@@ -39,7 +33,6 @@ const EventEditCard = () => {
   });
   const events = useAppSelector((state) => state.eventReducer.eventList);
   const currentUser = useAppSelector((state) => state.userReducer.currentUser);
-  const users = useAppSelector((state) => state.userReducer.userList);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -50,21 +43,6 @@ const EventEditCard = () => {
   const toggleEditModal = () => {
     console.log(eventUpdate);
     setOpenEditModal(!openEditModal);
-  };
-
-  const eventHandler: any = (id: string, description: string, date: string) => {
-    setEventUpdate({ _id: id, description: description, date: date });
-    setOpenEditModal(!openEditModal);
-  };
-
-  const saveHandler = (e: any) => {
-    e.preventDefault();
-    dispatch(updateEvent(eventUpdate));
-    setOpenEditModal(!openEditModal);
-  };
-
-  const deleteHandler = (id: string) => {
-    dispatch(deleteEvent(id));
   };
 
   const handleChange = (e: { target: { name: string; value: string } }) => {
@@ -83,14 +61,6 @@ const EventEditCard = () => {
 
   const handleNewEvent = (e: { target: { name: string; value: string } }) => {
     setNewEvent({ ...newEvent, [e.target.name]: e.target.value });
-  };
-
-  const handleGoingToEvent = (id: string) => {
-    console.log("click");
-    if (currentUser) {
-      dispatch(updateUser({ _id: currentUser._id, goingToEvent: id }));
-    }
-    console.log(currentUser?.goingToEvent);
   };
 
   return (
@@ -121,7 +91,7 @@ const EventEditCard = () => {
         <CardMedia
           component="img"
           height="194"
-          image="/static/images/cards/paella.jpg"
+          image="../images/olalan.jpg"
           alt="Picture of event"
         />
         <CardContent>
@@ -148,4 +118,4 @@ const EventEditCard = () => {
   );
 };
 
-export default EventEditCard;
+export default EventCreateCard;

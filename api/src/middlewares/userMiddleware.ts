@@ -23,7 +23,7 @@ export const verifyCredentials = async (
   }
 }
 
-export const verifyToken1 = async (
+export const verifyToken = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -37,15 +37,15 @@ export const verifyToken1 = async (
   })
 }
 
-const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
-  const { token } = req.body
-  const decoded = jwt.verify(token, `${process.env.JWT_SECRET}`)
-  if (decoded) {
-    return res.json(decoded)
-  } else {
-    throw new NotFoundError()
-  }
-}
+// const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+//   const { token } = req.body
+//   const decoded = jwt.verify(token, `${process.env.JWT_SECRET}`)
+//   if (decoded) {
+//     return res.json(decoded)
+//   } else {
+//     throw new NotFoundError()
+//   }
+// }
 
 export const verifyAdmin = (
   req: Request,

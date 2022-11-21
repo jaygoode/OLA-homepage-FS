@@ -5,7 +5,7 @@ const initialState: UserReducerState = {
   userList: [],
   currentUser: {
     _id: "630a1ec68730e0a256ecf8dc",
-    firstname: "burnham",
+    firstname: "jason",
     lastname: "admin",
     email: "admin@gmail.com",
     password: "$2b$10$kBbRpmy2o4FLznWUv9qXLOvGsewlrKmLqLcJxnABHCJlvAOPEO7Li",
